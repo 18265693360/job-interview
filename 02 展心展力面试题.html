@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="">
+    <link rel="import" href="share-buttons.html">
+</head>
+<body>
+<share-buttons>
+    <social-button>
+        <a href=""></a>
+    </social-button>
+</share-buttons>
+</body>
+<script>
+    // 1 HTML import
+    // HTML自定义标签
+    // HTML import
+
+    // 将一个新的元素的的样式与脚本 封装在一个HTML文件之中 share-buttons.html
+    // 这个元素就可以复用了
+    // 比如 share-button
+    // link 也要设置
+    // 先引入 link引入
+    // <link rel="import" href="share-buttons.html">
+
+    //新技术 目前只有Chrome 31 才会支持
+
+    //2 Custom Elements 标准
+    // Custom Elements标准对自定义元素的名字做了限制
+    /*
+    * 1. 自定义元素的名字必须包含一个破折号 <x-tags> <my-element>
+    *    <tabs> <foo_bar>不正确
+    *
+    * 2. 自定义元素的定义可以使用ES6的 class 语法
+    *    class MyElement extends HTMLElement{...}
+    *    window.customElements.define('my-element', MyElement)
+    * */
+
+    /*
+    *
+    *其实JS为我们提供了一个Worker的类，它的作用就是为了解决这种阻塞的现象。当我们使用这个类的时候，它就会向浏览器申请一个新的线程。这个线程就用来单独执行一个js文件。
+    *var worker = new Worker(js文件路径);
+    *那么这个语句就会申请一个线程用来执行这个js文件。
+    * */
+    //在新线程中使用postMessage()方法可以向主线程中发送一些数据
+    //主线程中欧使用work的类的onmessage事件来接受这些数据
+    // 这样就实现了JS的多线程执行和多线程之间的数据的传递
+
+    // postMessage(msg)
+    // postMessage 方法把在新线程执行的结果发送到浏览器的js引擎线程
+    worker.onmessage = function () {
+        //获取在新线程中执行的JS文件发送的数据 用event.data接受数据
+        console.log(event.data);
+    }
+
+    setTimeOut(function () {
+        worker.terminate();
+        // terminate 方法用于关闭线程
+    },2000)
+
+    setTimeout(function () {
+    // var worker = new Worker(js文件路径);
+        worker = new Worker("js/test.js")
+        //再次开启线程
+    },3000)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

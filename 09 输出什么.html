@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var fullName = "A A"
+    var obj = {
+        fullName:"B B",
+        prop:{
+            fullName:'C C',
+            getFullName:function () {
+                return this.fullName;
+            }
+        }
+    }
+
+    console.log(obj.prop.getFullName());
+    var test = obj.prop.getFullName;
+    console.log(test());            //this指向
+                                    // test（）全局变量 test在全局
+
+                                   // console.log(obj.prop.getFullName());
+                                   // 就是调用obj中的方法
+    // C C
+    // A A
+
+    let $body = $('body');
+    for (let i=0; i<10000;i++ ){
+        $body.text()
+    }
+
+    for(let i=0; i<10000; i++){
+        let $body = $('body');
+        $body.text()
+    }
+
+</script>
+</html>

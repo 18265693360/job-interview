@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box1{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            z-index: 9999;
+        }
+        .box2{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+<div class="box1"></div>
+<div class="box2"></div>
+</body>
+<script>
+    //事件处理函数 构造器函数  this中没有arguments关键字
+    // 箭头函数注意的问题
+    // 从上面的两段代码中，小伙伴应该已经看出来了箭头函数的适用场景：用来替代匿名函数或者函数表达式，并且箭头函数不能用来声明一个函数，也不能够通过 new 关键字新建对象实例
+    // arguments 关键字   构造函数
+    // 我们知道在函数中，可以通过 arguments 关键字来获取到当前函数中传入的参数，但是在箭头函数中是没有这个关键字的
+    //箭头函数不适用的情况
+    //箭头函数的this是绑定的 所以不适合构造函数
+    //箭头函数不能用在构造函数上
+    // const MakePerson = (name) => {
+    //     this.name = name;
+    //     this.sex = sex;
+    // }
+
+    //构造函数
+    //1. 创建一个新的对象 var obj = {}
+    //2. 将函数内部的this指向新生成的对象 this = obj
+    //3. 在新生成的对象内部通过 __ptoto__ 属性指向构造器函数的原型对象
+    //4. 返回这个新生成的对象
+
+
+    // Object.defineProperty()//精细化设置对象的属性
+    // 定义属性是否可以删除
+    // 定义属性是否可以修改
+    // 对属性的变化做出监控
+
+
+    //在事件处理函数中不推荐使用箭头函数
+    //因为在事件处理函数当中 this本应该指向事件源本身
+    // 但是箭头函数的写法让他不再指向事件源本身
+</script>
+<script>
+    //let var 是为了解决什么问题
+    // 在js中是没有块级作用域的，var 声明的变量作用域是整个函数体，而let可以起到这一作用
+    // let不像var那样，会发生“变量提升”现象
+
+    // ② 而let可以起到这一作用啊在js中变量和函数的声明会提升到当前作用域最顶部执行。这样就会出现问题。
+// var a = []; //函数和变量i会最先进行声明，同时全局变量i经过for循环赋值为10 for (var i = 0; i < 10; i++) { a[i] = function () { console.log(i); }; } console.log(i);//10 a[6]();//10
+//     而使用let就解决了这个问题
+//     for (let i = 0; i < 10; i++) { a[i] = function () { console.log(i); }; } a[6](); //6
+
+    // let不允许在相同块级作用域内，重复声明同一个变量
+
+    // const
+    // ① const也用来声明变量，但是声明的是常量。一旦声明，常量的值就不能改变。
+    //  与let相同也不能在相同块级作用域内重复声明同一个变量。
+    // const的作用域与let命令相同：只在声明所在的块级作用域内有效。
+</script>
+</html>

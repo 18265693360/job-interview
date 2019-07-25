@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var a = 100;
+    function test() {
+        alert(a);//100 此时上面 a = 100
+        a = 10;
+        alert(a);//10  被覆盖了 a = 10
+    }
+    test();
+    alert(a);//10
+
+</script>
+</html>

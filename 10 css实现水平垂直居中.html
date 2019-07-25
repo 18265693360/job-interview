@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*第一种 */
+        .box{
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+        
+        /*第二种table-cell flex*/
+        .box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /*第三种局对定位 负边距*/
+        .box{
+            position: relative;
+        }
+        .box span{
+            position: absolute;
+            width: 100px;
+            height: 50px;
+            top: 50%;
+            left: 50%;
+            margin-left: -50%;
+            margin-top: -25px;
+            text-align: center;
+        }
+        /*绝对定位*/
+        .box span{
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <span>垂直居中</span>
+</div>
+</body>
+<script>
+    //错误语句
+    // var a = {1,2,3,4}
+    // var b = {a,b,c,d}
+    // var c = [a,b,c,d]
+
+</script>
+</html>

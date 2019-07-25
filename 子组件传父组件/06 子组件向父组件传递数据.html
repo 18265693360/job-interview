@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--监听事件 $on -->
+    <!--触发事件 $emit -->
+   <template>
+       <input type="msg" @change="setMsg"/>
+   </template>
+</body>
+<script src="../vue.js"></script>
+<script>
+    export default {
+        data(){
+            return {msg:''}
+        },
+        methods:{
+            setMsg(){
+                this.$emit('tansferUser', this.msg)
+                //用$emit 来遍历 transferUser 事件 并返回this.msg
+            }
+        }
+    }
+    //transferUser 是一个自定义事件 功能类似于一个中转 this.msg将通过这个事件传递给父组件
+</script>
+</html>

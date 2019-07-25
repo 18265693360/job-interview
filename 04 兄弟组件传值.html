@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{title}}</h1>
+
+        <com-a></com-a>
+        <com-b></com-b>
+    </div>
+</body>
+<script src="vue%20(1).js"></script>
+<script>
+    //小项目中使用 eventBus
+
+    // 兄弟组件传值
+    // eventBus 就是创建一个事件中心 中转站 可以用他来接受事件和传递事件
+    // 项目小时比较合适  项目较大还是使用vuex
+    const eventBus = new Vue();
+    const comA = {
+        data(){
+            return {
+                title: "com-A数据"
+            }
+        },
+        template:template`
+            <div class="pd">
+                <h1>我是兄弟一</h1>
+                <button @click="handleClick">点我传值</button>
+            </div>
+        `,
+        methods:{
+          handleClick(){
+              bus.$emit('toData', this.title)
+          }
+        }
+    }
+
+    const comB = {
+        data(){
+            return{
+                title: "我是com-B数据"
+            }
+        },
+        template: `
+            <div class="pd">
+                <h1>我是兄弟二</h1>
+            </div>
+        `,
+        methods:{
+
+        },
+        created(){
+            bus.$on('toData', function (payload) {
+                console.log(payload, '负载数据');
+            })
+        }
+    }
+
+    var vm = new Vue({
+        component:{
+            "com-a":comA,
+            "com-b":comB,
+        },
+        el: "#app",
+        data:{
+            title:"我是标题"
+        }
+    })
+</script>
+</html>

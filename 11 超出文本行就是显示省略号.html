@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .in1{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .in2{
+            /*display: -webkit-box;*/
+            /*-webkit-box-orient: vertical;*/
+            /*-webkit-line-clamp:2;*/
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+               表示显示的行数*/
+
+        }
+    </style>
+</head>
+<body>
+
+<input type="text" class="in1">
+<input type="text" class="in2">
+
+</body>
+<script>
+    /*
+    * 首先，要知道css的三条属性。
+
+     overflow:hidden; //超出的文本隐藏
+
+     text-overflow:ellipsis; //溢出用省略号显示
+
+     white-space:nowrap; //溢出不换行
+
+     这三个是css的基础属性，需要记得。
+
+     但是第三条属性，只能显示一行，不能用在这里，那么如果显示多行呢？
+*/
+</script>
+</html>

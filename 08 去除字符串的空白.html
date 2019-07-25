@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //全局
+    // str = str.replace(/\s*/g,"");
+    // // \s  表示空白字符（空格， tab,  回车键）只要有空白就是true
+    // // \S  表示非空白字符（空格， tab,  回车键只要有非空白就是true
+    //
+    // //开头 结尾
+    // str = str.replace(/^\s*|\s*$/g,"")
+    //     // *  :  前面的原子可以出现0次或很多次  相当于{0,}
+    //
+    // //左侧
+    // str = str.replace(/^\s*/,"")
+    //
+    // //右侧
+    // str = str.replace(/(\s*$)/g,"")
+    //
+    // //JQ
+    // // $.trim() 函数用于去除字符串两端的空白字符。
+    // var str = "34 2";
+    // var str_1 = $.trim(str);
+    // console.log(str_1);
+
+    //数据扁平化
+    // 扁平化概念的核心意义是：去除冗余、厚重和繁杂的装饰效果。
+    // 不难想象，我们为什么要让数据也扁平化。
+    // 那是为了更加能够让信息更加的凸显出来
+    // 对于多维数组，扁平化的目的就是让他降维。
+    // function isArray(obj) {
+    //     return Object.prototype.toString().call(obj) == '[object Array]'
+    // }
+    //
+    // var arr = [1,[1],2,3,[2,3,4,[null,2,3,4,[1]]]];
+    // function flatten(arr) {
+    //     var arr = arr || [],
+    //         resArr = [],
+    //         len = arr.length
+    //
+    //     for (let i=0; i<len; i++){
+    //         if (isArray(arr[i])){
+    //             resArr = resArr.concat(flatten(arr[i]))//数组中可能还有数组
+    //             console.log(resArr);
+    //         } else{
+    //             resArr.push(arr[i])
+    //         }
+    //     }
+    //     return resArr
+    // }
+    //
+    //
+    // Array.prototype.flatten1 = function () {
+    //     var resArr = []
+    //     this.forEach(function (item) {
+    //         object.prototype.toString().call(item) == '[object Array]' ? resArr = resArr.concat(item.flatten1()) : resArr.push(item)
+    //     })
+    //     return resArr
+    // }
+    //
+    // //ES6 语法
+    // const flatten2 = (arr) => {
+    //     let resArr = []
+    //     arr.forEach(item=>Object.prototype.call(item) == '[object Array]' ? resArr = resArr.concat(flatten2(item)) : resArr.push(item))
+    //     return resArr
+    // }
+
+    //数组降维，扁平化
+    function isArray(obj) {
+        return Object.prototype.toString.call(obj) == '[object Array]'
+
+    }
+    var arr = [1, [1], 2, 3, [2, 3, 4, [null, 2, 3, 4, [1]]]];
+    function flatten(arr) {
+        var arr = arr || [],
+            resArr = [],
+            len = arr.length
+
+        for (let i = 0; i < len; i++) {
+            if (isArray(arr[i])) {
+                resArr = resArr.concat(flatten(arr[i]))  //数组中可能还有数组
+                // flatten(resArr)                 //递归失败原因
+                console.log(resArr)
+            } else {
+                resArr.push(arr[i])
+            }
+        }
+        return resArr
+    }
+
+
+    //最普通的方式，递归实现，遇到是数组的元素就递归
+    // 顺序扫描初始数组{arr}的第一维，取元素element，若element还是数组则执行3，
+    // 若element是单个元素则执行2
+    // 将单元素加入newArr的一维数组中
+    // 把{element}数组作为新的初始数组，执行1
+    function common(arr,newArr){
+        arr.forEach(element => {
+            if(!Array.isArray(element)){
+                newArr.push(element);
+            }else{
+                return arguments.callee(element,newArr);
+            }
+        });
+        return newArr;
+    }
+    //降维打击 ： 利用了toString方法的特性,或者是join方法也可以
+    // 这是巧妙使用JS的APItoString方法来实现的，调用Array.prototype.toString，会返回将数组中的元素使用,连接起来的字符串
+    function reduceDimen(arr){
+        return arr.toString().split(',').map(function(val){
+            return parseInt(val) || parseFloat(val) || val;
+        });
+    }
+    //扩展运算符 和 递归 结合使用
+    // 首先要了解ES6中的扩展运算符... , 三点运算符可以将二维数组直接扁平化
+    function extendOpt(arr){
+        if(!arr.some(element => {
+            return Array.isArray(element);
+        })){
+            return arr;
+        }else{
+            arr = [].concat(...arr);
+            return arguments.callee(arr);
+        }
+    }
+    //代理执行，屏蔽掉不同函数的参数异构，又使得算法表达可配置
+    var flatten = function(func,arr) {
+        if(arguments.length === 1){
+            console.log(common(func,[]));
+            return;
+        }
+        if(func === common){
+            console.log(func(arr,[]));
+            return ;
+        }
+        console.log(func(arr));
+    }
+    //测试
+    var arr = [
+        [1,2,[
+            10,34,22
+        ]],
+        [[
+            2,3,58
+        ],2,5],
+        [6,4,9]
+    ];
+    flatten(arr);
+    flatten(common,arr);
+    flatten(reduceDimen,arr);
+    flatten(extendOpt,arr);
+    //结果均输出 ： [ 1, 2, 10, 34, 22, 2, 3, 58, 2, 5, 6, 4, 9 ]
+
+
+
+</script>
+</html>
